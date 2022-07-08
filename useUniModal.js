@@ -1,21 +1,60 @@
-import { useState } from 'react';
+import { useReducer, useCallback } from 'react';
 
+const defaultSimbol = Symbol('__default__');
 const listeners = [];
 
-export const updateModal = (newText) => {
-  listeners.forEach(listener => listener(newText));
-}
-
-const useUniModal = () => {
-  const [modal, setModal] = useState(() => () => null);
-  listeners.push((newModal) => {
-    if (typeof newModal === 'function') {
-      setModal(() => newModal);
-    } else {
-      throw new Error('not valid react component')
+export const updateModal = (config, id = defaultSimbol) => {
+  listeners.forEach(({ id: listenersId, callback }) => {
+    if (listenersId === id) {
+      callback(config);
     }
   });
-  return modal;
+}
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'update_modal': {
+      return {
+        ...state,
+        body: action.payload.body
+      }
+    }
+    default:
+      return state;
+  }
+}
+
+const UniModal = ({
+  body
+}) => {
+  return (
+    <div className="uni-modal">
+      {body}
+    </div>
+  )
+}
+
+const useUniModal = (id = defaultSimbol) => {
+  const [state, dispatch] = useReducer(reducer, { id, body: () => null });
+  listeners.push({
+    id,
+    callback: ({ body }) => {
+      dispatch({
+        type: 'update_modal',
+        payload: {
+          body
+        }
+      });
+    }
+  });
+
+  const body = typeof state.body === 'function' ? <state.body /> : state.body;
+
+  const memoizedCallback = useCallback(
+    () => <UniModal body={body} />,
+    [body],
+  );
+  return memoizedCallback;
 }
 
 export default useUniModal;
