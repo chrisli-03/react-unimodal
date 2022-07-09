@@ -1,18 +1,19 @@
 import { useEffect, useReducer, useCallback, useMemo } from 'react';
+import UniModal from '../component/UniModal'
 
-const defaultSimbol = Symbol('__default__');
+const defaultSymbol = Symbol('__default__');
 let listeners = {};
 
-export const showModal = (id = defaultSimbol) => {
+export const showModal = (id = defaultSymbol) => {
   listeners[id]?.displayCallback(true);
 }
 
-export const hideModal = (id = defaultSimbol) => {
+export const hideModal = (id = defaultSymbol) => {
   listeners[id]?.displayCallback(false);
 }
 
 export const updateModal = (...params) => {
-  let id = defaultSimbol;
+  let id = defaultSymbol;
   let config = {};
   if (params.length === 1) {
     if (typeof params[0] === 'string') {
@@ -47,29 +48,8 @@ const reducer = (state, action) => {
   }
 }
 
-const UniModal = ({
-  open,
-  hideFn,
-  header,
-  body,
-  footer
-}) => {
-  if (!open) {
-    return null;
-  }
-
-  return (
-    <div className="uni-modal">
-      <button type="button" onClick={hideFn}>close</button>
-      {header && <div className="uni-modal__header">{header}</div>}
-      {body && <div className="uni-modal__body">{body}</div>}
-      {footer && <div className="uni-modal__footer">{footer}</div>}
-    </div>
-  )
-}
-
 export const useUniModal = (...params) => {
-  let id = defaultSimbol;
+  let id = defaultSymbol;
   let config = {};
   if (params.length === 1) {
     if (typeof params[0] === 'string') {
