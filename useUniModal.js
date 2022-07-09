@@ -1,30 +1,29 @@
 import { useEffect, useReducer, useCallback, useMemo } from 'react';
 
 const defaultSimbol = Symbol('__default__');
-let listeners = [];
+let listeners = {};
 
 export const showModal = (id = defaultSimbol) => {
-  listeners.forEach(({ id: listenersId, displayCallback }) => {
-    if (listenersId === id) {
-      displayCallback(true);
-    }
-  });
+  listeners[id]?.displayCallback(true);
 }
 
 export const hideModal = (id = defaultSimbol) => {
-  listeners.forEach(({ id: listenersId, displayCallback }) => {
-    if (listenersId === id) {
-      displayCallback(false);
-    }
-  });
+  listeners[id]?.displayCallback(false);
 }
 
-export const updateModal = (config, id = defaultSimbol) => {
-  listeners.forEach(({ id: listenersId, updateCallback }) => {
-    if (listenersId === id) {
-      updateCallback(config);
+export const updateModal = (...params) => {
+  let id = defaultSimbol;
+  let config = {};
+  if (params.length === 1) {
+    if (typeof params[0] === 'string') {
+      id = params[0]
+    } else if (typeof params[0] === 'object') {
+      config = params[0]
     }
-  });
+  } else if (params.length > 1) {
+    [id, config] = params;
+  }
+  listeners[id]?.updateCallback(config);
 }
 
 const reducer = (state, action) => {
@@ -83,7 +82,7 @@ export const useUniModal = (...params) => {
   }
   const [state, dispatch] = useReducer(reducer, { id, open: false, ...config });
   useEffect(() => {
-    listeners.push({
+    listeners[id] = {
       id,
       updateCallback: ({ header, body, footer }) => {
         dispatch({
@@ -103,9 +102,9 @@ export const useUniModal = (...params) => {
           }
         })
       }
-    });
+    };
     return () => {
-      listeners = listeners.filter(({ id: listenerId }) => listenerId !== id );
+      delete listeners[id];
     }
   }, [id]);
 
