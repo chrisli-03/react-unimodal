@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useCallback, useMemo } from 'react';
+import React, { useEffect, useReducer, useCallback, useMemo } from 'react';
 import UniModal from '../component/UniModal'
 
 const defaultSymbol = Symbol('__default__');
