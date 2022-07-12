@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const UniModal = ({
-  open,
-  hideFn,
-  header,
-  body,
-  footer
-}) => {
+function UniModal({
+  open = false,
+  hideFn = () => {},
+  header = null,
+  body = null,
+  footer = null,
+}) {
   if (!open) {
     return null;
   }
@@ -18,7 +19,15 @@ const UniModal = ({
       {body && <div className="uni-modal__body">{body}</div>}
       {footer && <div className="uni-modal__footer">{footer}</div>}
     </div>
-  )
+  );
 }
+
+UniModal.propTypes = {
+  open: PropTypes.bool,
+  hideFn: PropTypes.func,
+  header: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  body: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  footer: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+};
 
 export default UniModal;

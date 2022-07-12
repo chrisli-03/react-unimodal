@@ -1,21 +1,22 @@
 import {
   BrowserRouter as Router,
   Routes,
-  Route
-} from "react-router-dom";
-import TestPage from './page/TestPage'
-import { useUniModal } from 'react-unimodal'
+  Route,
+} from 'react-router-dom';
+import { useUniModal } from 'react-unimodal';
+import TestPage from './page/TestPage';
 import './App.css';
 
+const header = () => <div>component header</div>;
 function App() {
   const Modal = useUniModal({ header: 'header', footer: 'footer' });
-  // const Modal2 = useUniModal('modal2', { header: () => <div>component header</div>});
+  const Modal2 = useUniModal('modal2', { header });
 
   return (
     <Router>
       <div className="App">
         <Modal />
-        {/*<Modal2 />*/}
+        <Modal2 />
         <Routes>
           <Route path="/" element={<div>home</div>} />
           <Route path="/test" element={<TestPage />} />

@@ -1,34 +1,53 @@
-import babel from '@rollup/plugin-babel'
-import commonjs from "@rollup/plugin-commonjs"
-import external from 'rollup-plugin-peer-deps-external'
-import resolve from "@rollup/plugin-node-resolve";
+import eslint from '@rollup/plugin-eslint';
+import babel from '@rollup/plugin-babel';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import { terser } from 'rollup-plugin-terser';
+import size from 'rollup-plugin-size';
+import visualizer from 'rollup-plugin-visualizer';
 
-import pkg from "./package.json";
+import pkg from './package.json';
+
+const options = {
+  input: 'src/index.js',
+  external: ['react'],
+  plugins: [
+    eslint(),
+    babel({
+      babelHelpers: 'bundled',
+      exclude: 'node_modules/**',
+    }),
+    resolve(),
+    commonjs(),
+    terser({
+      compress: true,
+      mangle: true,
+      output: {
+        comments: false,
+      },
+    }),
+    size(),
+    visualizer({
+      gzipSize: true,
+    }),
+  ],
+};
 
 export default [
   {
-    input: "src/index.js",
-    output: [
-      {
-        file: pkg.main,
-        format: "cjs",
-        sourcemap: true,
-      },
-      {
-        file: pkg.module,
-        format: "esm",
-        sourcemap: true,
-      },
-    ],
-    external: ['react'],
-    plugins: [
-      external(),
-      babel({
-        babelHelpers: 'bundled',
-        exclude: 'node_modules/**',
-      }),
-      resolve(),
-      commonjs(),
-    ],
+    output: {
+      file: pkg.main,
+      format: 'cjs',
+      sourcemap: true,
+    },
+    ...options,
+  },
+  {
+    output: {
+      file: pkg.module,
+      format: 'esm',
+      sourcemap: true,
+    },
+    ...options,
   },
 ];
