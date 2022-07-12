@@ -6,7 +6,7 @@ import UniModal from '../component/UniModal';
 const defaultSymbol = Symbol('__default__');
 const listeners = {};
 
-const parseParams = (...params) => {
+const parseParams = (params) => {
   let id = defaultSymbol;
   let config = {};
   if (params.length === 1) {
