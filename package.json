@@ -1,6 +1,6 @@
 {
   "name": "react-unimodal",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "A unified modal component for React.JS",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -16,15 +16,21 @@
   "tags": [
     "react",
     "unified",
-    "modal"
+    "modal",
+    "react-modal"
   ],
   "keywords": [
     "react",
     "react-component",
     "unified",
-    "modal"
+    "modal",
+    "react-modal"
   ],
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HechengLi/react-unimodal.git"
+  },
   "dependencies": {
     "prop-types": "^15.8.1"
   },
