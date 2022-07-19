@@ -1,4 +1,4 @@
-import eslint from '@rollup/plugin-eslint';
+// import eslint from '@rollup/plugin-eslint';
 import typescript from '@rollup/plugin-typescript';
 import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
@@ -13,7 +13,7 @@ const options = {
   input: 'src/index.js',
   external: ['react'],
   plugins: [
-    eslint({ fix: true }),
+    // eslint(),
     typescript(),
     babel({
       babelHelpers: 'bundled',
