@@ -1,21 +1,35 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
-const UniModal = (_a) => {
-  const _b = _a.open;
-  const open = _b === void 0 ? false : _b;
-  const { hideFn } = _a;
-  const _c = _a.header;
-  const header = _c === void 0 ? null : _c;
-  const _d = _a.body;
-  const body = _d === void 0 ? null : _d;
-  const _e = _a.footer;
-  const footer = _e === void 0 ? null : _e;
+type UniModalProps = {
+  open: boolean,
+  hideFn: () => void,
+  header: null | string | ReactElement,
+  body: null | string | ReactElement,
+  footer: null | string | ReactElement
+};
+
+const UniModal: React.FC<UniModalProps> = ({
+  open = false,
+  hideFn,
+  header = null,
+  body = null,
+  footer = null,
+}): (JSX.Element | null) => {
   if (!open) {
     return null;
   }
-  return (React.createElement('div', { className: 'uni-modal' }, React.createElement('button', { type: 'button', onClick: hideFn }, 'close'), header && React.createElement('div', { className: 'uni-modal__header' }, header), body && React.createElement('div', { className: 'uni-modal__body' }, body), footer && React.createElement('div', { className: 'uni-modal__footer' }, footer)));
+
+  return (
+    <div className="uni-modal">
+      <button type="button" onClick={hideFn}>close</button>
+      {header && <div className="uni-modal__header">{header}</div>}
+      {body && <div className="uni-modal__body">{body}</div>}
+      {footer && <div className="uni-modal__footer">{footer}</div>}
+    </div>
+  );
 };
+
 UniModal.propTypes = {
   open: PropTypes.bool.isRequired,
   hideFn: PropTypes.func.isRequired,
@@ -23,8 +37,5 @@ UniModal.propTypes = {
   body: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   footer: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 };
+
 export default UniModal;
-// # sourceMappingURL=UniModal.js.map
-// # sourceMappingURL=UniModal.js.map
-// # sourceMappingURL=UniModal.js.map
-// # sourceMappingURL=UniModal.js.map
