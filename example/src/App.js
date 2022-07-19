@@ -10,7 +10,7 @@ import './App.css';
 const header = () => <div>component header</div>;
 function App() {
   const Modal = useUniModal({ header: 'header', footer: 'footer' });
-  const Modal2 = useUniModal('modal2', { header });
+  const Modal2 = useUniModal({ id: 'modal2', header });
 
   return (
     <Router>

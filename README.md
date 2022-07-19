@@ -14,7 +14,7 @@ import { useUniModal } from 'react-unimodal'
 // in any page/component, use useUniModal hook to create the component
 // use like a normal component
 function App() {
-  const Modal = useUniModal('modal id', { header: () => <div>component header</div>})
+  const Modal = useUniModal({ id: 'modal id', header: <Header />, body: <Body />, footer: <Footer /> })
 
   return (
   <div className="App">
@@ -40,7 +40,7 @@ const Component = () => {
       <div>
         <button onClick={() => showModal('modal id')}>show modal</button>
         <button onClick={() => hideModal('modal id')}>hide modal</button>
-        <button onClick={() => {updateModal('modal id', { body: modalBody })}}>update modal</button>
+        <button onClick={() => {updateModal({ id: 'modal id', body: modalBody })}}>update modal</button>
       </div>
     </div>
   );
@@ -50,24 +50,30 @@ const Component = () => {
 params to pass
 
 useUniModal
-- passing 2 params
-  - first param is id of modal
-  - second param is configuration
-- passing 1 param
-  - first param is configuration
-  - id will be default id
+- object
+  - id: optional, id of modal, default is used if not set
+  - header: optional, header component of modal
+  - body: body component of modal
+  - footer: optional, footer component of modal
 
 example
 
-`useUniModal('modal id', { header, body, footer })` or `useUniModal({ header, body, footer })`
+`useUniModal({ id: 'modal id', header, body, footer })` or `useUniModal({ header, body, footer })`
 
-header, body, footer can be a component(function) or string
+header, body, footer can be a react element or string
 
 showModal
 - call this function to display modal
+- id: optional, default is used if not set
 
 hideModal
 - call this function to hide modal
+- id: optional, id of modal, default is used if not set
 
 updateModal
 - pass a configuration to change header, body, or footer of a modal, same as `useUniModal`
+- object
+    - id: optional, id of modal, default is used if not set
+    - header: optional, header component of modal
+    - body: body component of modal
+    - footer: optional, footer component of modal
