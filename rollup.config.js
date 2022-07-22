@@ -1,9 +1,11 @@
+import del from 'rollup-plugin-delete'
 // import eslint from '@rollup/plugin-eslint';
 import typescript from '@rollup/plugin-typescript';
 import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
+import postcss from 'rollup-plugin-postcss';
 import size from 'rollup-plugin-size';
 import visualizer from 'rollup-plugin-visualizer';
 
@@ -13,6 +15,7 @@ const options = {
   input: 'src/index.js',
   external: ['react'],
   plugins: [
+    del({ targets: 'dist/style.js' }),
     // eslint(),
     typescript(),
     babel({
@@ -36,6 +39,19 @@ const options = {
 };
 
 export default [
+  {
+    input: './src/style.js',
+    output: {
+      file: 'dist/style.js',
+    },
+    plugins: [
+      // del({ targets: 'dist/*' }),
+      postcss({
+        extract: true,
+        minimize: true
+      }),
+    ],
+  },
   {
     output: {
       file: pkg.main,

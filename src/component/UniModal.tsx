@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { useEffect, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
 type UniModalProps = {
@@ -6,7 +6,8 @@ type UniModalProps = {
   hideFn: () => void,
   header: null | string | ReactElement,
   body: null | string | ReactElement,
-  footer: null | string | ReactElement
+  footer: null | string | ReactElement,
+  closeOnOutsideClick: null | boolean
 };
 
 const UniModal: React.FC<UniModalProps> = ({
@@ -15,16 +16,32 @@ const UniModal: React.FC<UniModalProps> = ({
   header = null,
   body = null,
   footer = null,
+  closeOnOutsideClick = false,
 }): (JSX.Element | null) => {
+  useEffect(() => {
+    if (closeOnOutsideClick && open && hideFn) {
+      const clickHandler = (evt: Event) => {
+        if (!(evt.target as HTMLElement).closest('.uni-modal')) {
+          hideFn();
+        }
+      };
+      window.addEventListener('click', clickHandler, true);
+      return () => {
+        window.removeEventListener('click', clickHandler, true);
+      };
+    }
+    return () => {};
+  }, [closeOnOutsideClick, open, hideFn]);
+
   if (!open) {
     return null;
   }
 
   return (
     <div className="uni-modal">
-      <button type="button" onClick={hideFn}>close</button>
+      <button className="uni-modal__close-button" type="button" onClick={hideFn}>x</button>
       {header && <div className="uni-modal__header">{header}</div>}
-      {body && <div className="uni-modal__body">{body}</div>}
+      <div className="uni-modal__body">{body}</div>
       {footer && <div className="uni-modal__footer">{footer}</div>}
     </div>
   );
@@ -36,6 +53,7 @@ UniModal.propTypes = {
   header: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   body: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   footer: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  closeOnOutsideClick: PropTypes.bool,
 };
 
 export default UniModal;
