@@ -19,10 +19,10 @@ function App() {
   const Modal = useUniModal({ id: 'modal id', header: <Header />, body: <Body />, footer: <Footer /> })
 
   return (
-  <div className="App">
-    <Modal />
-  </div>
-  );
+    <div className="App">
+      <Modal />
+    </div>
+  )
 }
 ```
 using modal
@@ -45,7 +45,7 @@ const Component = () => {
         <button onClick={() => {updateModal({ id: 'modal id', body: modalBody })}}>update modal</button>
       </div>
     </div>
-  );
+  )
 }
 ```
 
