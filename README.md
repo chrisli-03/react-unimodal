@@ -8,6 +8,8 @@ install
 npm i --save react-unimodal
 ```
 
+add `import 'react-unimodal/dist/style.css';` to your app.js file to use default styles
+
 creating modal
 ```javascript
 import { useUniModal } from 'react-unimodal'
