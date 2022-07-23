@@ -1,5 +1,10 @@
 import React, {
-  useEffect, useReducer, useCallback, useMemo, ReactElement, Reducer,
+  useEffect,
+  useReducer,
+  useCallback,
+  useMemo,
+  ReactElement,
+  Reducer,
 } from 'react';
 import UniModal from '../component/UniModal';
 

@@ -5,44 +5,18 @@ import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
+import dts from 'rollup-plugin-dts';
 import postcss from 'rollup-plugin-postcss';
 import size from 'rollup-plugin-size';
 import visualizer from 'rollup-plugin-visualizer';
 
 import pkg from './package.json';
 
-const options = {
-  input: 'src/index.js',
-  external: ['react'],
-  plugins: [
-    del({ targets: 'dist/style.js' }),
-    // eslint(),
-    typescript(),
-    babel({
-      babelHelpers: 'bundled',
-      exclude: 'node_modules/**',
-    }),
-    resolve(),
-    commonjs(),
-    terser({
-      compress: true,
-      mangle: true,
-      output: {
-        comments: false,
-      },
-    }),
-    size(),
-    visualizer({
-      gzipSize: true,
-    }),
-  ],
-};
-
 export default [
   {
-    input: './src/style.js',
+    input: './src/style.ts',
     output: {
-      file: 'dist/style.js',
+      file: 'dist/style.ts',
     },
     plugins: [
       // del({ targets: 'dist/*' }),
@@ -53,19 +27,52 @@ export default [
     ],
   },
   {
-    output: {
-      file: pkg.main,
-      format: 'cjs',
-      sourcemap: true,
-    },
-    ...options,
+    input: 'src/index.ts',
+    external: ['react'],
+    output: [
+      {
+        file: pkg.main,
+        format: 'cjs',
+        sourcemap: true,
+      },
+      {
+        file: pkg.module,
+        format: 'esm',
+        sourcemap: true,
+      },
+    ],
+    plugins: [
+      // eslint(),
+      typescript({ tsconfig: './tsconfig.json' }),
+      babel({
+        babelHelpers: 'bundled',
+        exclude: 'node_modules/**',
+      }),
+      resolve(),
+      commonjs(),
+      terser({
+        compress: true,
+        mangle: true,
+        output: {
+          comments: false,
+        },
+      }),
+      size(),
+      visualizer({
+        gzipSize: true,
+      }),
+    ],
   },
   {
-    output: {
-      file: pkg.module,
-      format: 'esm',
-      sourcemap: true,
-    },
-    ...options,
+    // path to your declaration files root
+    input: './dist/esm/dts/index.d.ts',
+    output: [{ file: 'dist/index.d.ts', format: 'es' }],
+    plugins: [
+      dts(),
+      del({
+        hook: 'buildEnd',
+        targets: ['dist/style.ts', 'dist/cjs/dts', 'dist/esm/dts'],
+      }),
+    ],
   },
 ];

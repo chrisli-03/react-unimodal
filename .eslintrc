@@ -12,6 +12,7 @@
     "ecmaVersion": 2020
   },
   "rules": {
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "max-len": ["error", { "code": 200 }],
     "react/function-component-definition": [
       2,
