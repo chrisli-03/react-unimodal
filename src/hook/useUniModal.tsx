@@ -8,21 +8,6 @@ import React, {
 } from 'react';
 import UniModal from '../component/UniModal';
 
-const defaultSymbol = Symbol('__default__');
-const listeners = {};
-
-export const showModal = (id = defaultSymbol) => {
-  listeners[id]?.displayCallback(true);
-};
-
-export const hideModal = (id = defaultSymbol) => {
-  listeners[id]?.displayCallback(false);
-};
-
-export const updateModal = ({ id = defaultSymbol, ...config }) => {
-  listeners[id]?.updateCallback(config);
-};
-
 type State = {
   id?: string | symbol,
   open: boolean,
@@ -34,6 +19,33 @@ type State = {
 type Action =
   | { type: 'display_modal', payload: { open: boolean } }
   | { type: 'update_modal', payload: { header?: string | ReactElement, body?: string | ReactElement, footer?: string | ReactElement } };
+
+type UpdateState = {
+  id?: string | symbol,
+  header?: string | ReactElement,
+  body?: string | ReactElement,
+  footer?: string | ReactElement
+};
+
+const defaultSymbol = Symbol('__default__');
+const listeners = {};
+
+export const showModal = (id: string | symbol = defaultSymbol) => {
+  listeners[id]?.displayCallback(true);
+};
+
+export const hideModal = (id: string | symbol = defaultSymbol) => {
+  listeners[id]?.displayCallback(false);
+};
+
+export const updateModal = ({
+  id = defaultSymbol,
+  header,
+  body,
+  footer,
+}: UpdateState) => {
+  listeners[id]?.updateCallback({ header, body, footer });
+};
 
 const reducer: Reducer<State, Action> = (state: State, action: Action) => {
   switch (action.type) {
@@ -56,7 +68,7 @@ const reducer: Reducer<State, Action> = (state: State, action: Action) => {
   }
 };
 
-export const useUniModal = ({ id = defaultSymbol, ...config }) => {
+export const useUniModal = ({ id = defaultSymbol, ...config }: UpdateState) => {
   const [state, dispatch] = useReducer(reducer, { id, open: false, ...config });
   useEffect(() => {
     listeners[id] = {
