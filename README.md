@@ -1,14 +1,18 @@
 # React-UniModal
-A unified modal component for React.JS
+A lightweight global modal component for React.JS
 
 Create one modal and control it in any page/component
+
+Highly customizable header, body, and footer
+
+Try out demo here https://codesandbox.io/s/react-unimodal-hvbp1i
 
 install
 ```
 npm i --save react-unimodal
 ```
 
-add `import 'react-unimodal/dist/style.css';` to your app.js file to use default styles
+add `import 'react-unimodal/dist/style.css';` to your app.js file to use default styles, don't import if you want to style it yourself
 
 creating modal
 ```javascript
