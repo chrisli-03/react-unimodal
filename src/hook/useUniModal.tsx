@@ -8,18 +8,6 @@ import React, {
 } from 'react';
 import UniModal from '../component/UniModal';
 
-type State = {
-  id?: string | symbol,
-  open: boolean,
-  header?: string | ReactElement,
-  body?: string | ReactElement,
-  footer?: string | ReactElement
-};
-
-type Action =
-  | { type: 'display_modal', payload: { open: boolean } }
-  | { type: 'update_modal', payload: { header?: string | ReactElement, body?: string | ReactElement, footer?: string | ReactElement } };
-
 type UpdateState = {
   id?: string | symbol,
   header?: string | ReactElement,
@@ -47,6 +35,18 @@ export const updateModal = ({
   listeners[id]?.updateCallback({ header, body, footer });
 };
 
+type State = {
+  id?: string | symbol,
+  open: boolean,
+  header?: string | ReactElement,
+  body?: string | ReactElement,
+  footer?: string | ReactElement
+};
+
+type Action =
+  | { type: 'display_modal', payload: { open: boolean } }
+  | { type: 'update_modal', payload: { header?: string | ReactElement, body?: string | ReactElement, footer?: string | ReactElement } };
+
 const reducer: Reducer<State, Action> = (state: State, action: Action) => {
   switch (action.type) {
     case 'display_modal': {
@@ -73,7 +73,7 @@ export const useUniModal = ({ id = defaultSymbol, ...config }: UpdateState) => {
   useEffect(() => {
     listeners[id] = {
       id,
-      updateCallback: ({ header, body, footer } : { header: ReactElement | string, body: ReactElement | string, footer: ReactElement | string }) => {
+      updateCallback: ({ header, body, footer } : { header?: ReactElement | string, body?: ReactElement | string, footer?: ReactElement | string }) => {
         dispatch({
           type: 'update_modal',
           payload: {
