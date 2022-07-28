@@ -3,17 +3,10 @@ import React, {
   useReducer,
   useCallback,
   useMemo,
-  ReactElement,
+  ReactNode,
   Reducer,
 } from 'react';
 import UniModal from '../component/UniModal';
-
-type UpdateState = {
-  id?: string | symbol,
-  header?: string | ReactElement,
-  body?: string | ReactElement,
-  footer?: string | ReactElement
-};
 
 const defaultSymbol = Symbol('__default__');
 const listeners = {};
@@ -24,6 +17,13 @@ export const showModal = (id: string | symbol = defaultSymbol) => {
 
 export const hideModal = (id: string | symbol = defaultSymbol) => {
   listeners[id]?.displayCallback(false);
+};
+
+type UpdateState = {
+  id?: string | symbol,
+  header?: ReactNode,
+  body?: ReactNode,
+  footer?: ReactNode
 };
 
 export const updateModal = ({
@@ -38,14 +38,14 @@ export const updateModal = ({
 type State = {
   id?: string | symbol,
   open: boolean,
-  header?: string | ReactElement,
-  body?: string | ReactElement,
-  footer?: string | ReactElement
+  header?: ReactNode,
+  body?: ReactNode,
+  footer?: ReactNode
 };
 
 type Action =
   | { type: 'display_modal', payload: { open: boolean } }
-  | { type: 'update_modal', payload: { header?: string | ReactElement, body?: string | ReactElement, footer?: string | ReactElement } };
+  | { type: 'update_modal', payload: { header?: ReactNode, body?: ReactNode, footer?: ReactNode } };
 
 const reducer: Reducer<State, Action> = (state: State, action: Action) => {
   switch (action.type) {
@@ -73,7 +73,7 @@ export const useUniModal = ({ id = defaultSymbol, ...config }: UpdateState) => {
   useEffect(() => {
     listeners[id] = {
       id,
-      updateCallback: ({ header, body, footer } : { header?: ReactElement | string, body?: ReactElement | string, footer?: ReactElement | string }) => {
+      updateCallback: ({ header, body, footer } : { header?: ReactNode, body?: ReactNode, footer?: ReactNode }) => {
         dispatch({
           type: 'update_modal',
           payload: {

@@ -1,13 +1,13 @@
-import React, { useEffect, ReactElement } from 'react';
+import React, { useEffect, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 
 type UniModalProps = {
   open: boolean,
   hideFn: () => void,
-  header: null | string | ReactElement,
-  body: null | string | ReactElement,
-  footer: null | string | ReactElement,
-  closeOnOutsideClick: null | boolean
+  header: ReactNode,
+  body: ReactNode,
+  footer: ReactNode,
+  closeOnOutsideClick: void | boolean
 };
 
 const UniModal: React.FC<UniModalProps> = ({
