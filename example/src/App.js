@@ -3,7 +3,7 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-import { useUniModal, hideModal } from 'react-unimodal';
+import { useUniModal, hideModal, updateModal } from 'react-unimodal';
 import TestPage from './page/TestPage';
 import './App.css';
 import 'react-unimodal/dist/style.css';
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <Router>
-      <Modal />
+      <Modal noMask />
       <Modal2 closeOnOutsideClick />
       <ModalWithPortal />
       <div className="App">

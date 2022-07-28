@@ -8,7 +8,8 @@ type UniModalProps = {
   header: ReactNode,
   body: ReactNode,
   footer: ReactNode,
-  closeOnOutsideClick: void | boolean
+  closeOnOutsideClick: void | boolean,
+  noMask: void | boolean
 };
 
 const UniModal: React.FC<UniModalProps> = ({
@@ -18,6 +19,7 @@ const UniModal: React.FC<UniModalProps> = ({
   body = null,
   footer = null,
   closeOnOutsideClick = false,
+  noMask = false,
 }): (JSX.Element | null) => {
   useEffect(() => {
     if (closeOnOutsideClick && open && hideFn) {
@@ -39,7 +41,7 @@ const UniModal: React.FC<UniModalProps> = ({
   }
 
   return (
-    <div className="uni-modal__wrap">
+    <div className="uni-modal__wrap" data-mask={!noMask}>
       <div className="uni-modal">
         <button className="uni-modal__close-button" type="button" onClick={hideFn} aria-label="close">
           <CrossIcon />
