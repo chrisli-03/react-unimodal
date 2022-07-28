@@ -1,20 +1,30 @@
-.uni-modal {
+.uni-modal__wrap {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: #00000073;
+}
+
+.uni-modal {
+  position: relative;
 
   min-width: 300px;
   max-width: 80%;
-  min-height: 300px;
   max-height: 80%;
 
   border: 1px solid #ccc;
-  border-radius: 15px;
-  box-shadow: 0 0 0 9999px rgb(150 150 150 / 75%);
+  border-radius: 2px;
+  box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+  background-color: #fff;
 
   overflow: hidden;
 }
@@ -24,47 +34,50 @@
   top: 0;
   right: 0;
 
-  width: 51px;
-  height: 51px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 19px;
+
+  background-color: #fff;
+
+  transition: background-color 0.4s;
 
   appearance: unset;
   writing-mode: unset;
   text-rendering: unset;
   color: unset;
   cursor: pointer;
-  background-color: unset;
-  padding: unset;
   border-width: unset;
   border-style: unset;
   border-color: unset;
   border-image: unset;
-  border-left: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+}
+
+.uni-modal__close-button:hover {
+  background-color: rgba(0,0,0,.06);
 }
 
 .uni-modal__header {
-  display: flex;
-  align-items: center;
-  flex: 0 0 30px;
+  padding: 16px 24px;
 
-  height: 30px;
-  padding: 10px;
-  padding-right: 60px;
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  border-radius: 2px 2px 0 0;
 
-  border-bottom: 1px solid #ccc;
+  color: #000000d9;
+  font-weight: bold;
 }
 
 .uni-modal__body {
-  flex: 1 1 auto;
+  padding: 24px;
 }
 
 .uni-modal__footer {
-  display: flex;
-  align-items: center;
-  flex: 0 0 30px;
+  padding: 10px 16px;
 
-  height: 30px;
-  padding: 10px;
+  border-top: 1px solid rgba(0,0,0,.06);
 
-  border-top: 1px solid #ccc;
+  text-align: right;
 }

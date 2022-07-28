@@ -17,10 +17,10 @@ function App() {
 
   return (
     <Router>
+      <Modal />
+      <Modal2 closeOnOutsideClick />
+      <ModalWithPortal />
       <div className="App">
-        <Modal />
-        <Modal2 closeOnOutsideClick />
-        <ModalWithPortal />
         <Routes>
           <Route path="/" element={<div>home</div>} />
           <Route path="/test" element={<TestPage />} />
