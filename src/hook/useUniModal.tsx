@@ -11,6 +11,7 @@ import UniModal from '../component/UniModal';
 
 const defaultSymbol = Symbol('__default__');
 const listeners = {};
+
 export const showModal = (id: string | symbol = defaultSymbol) => {
   listeners[id]?.displayCallback(true);
 };

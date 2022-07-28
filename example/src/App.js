@@ -12,7 +12,8 @@ const modalRoot = document.getElementById('modal-root');
 const header = <div>component header</div>;
 function App() {
   const Modal = useUniModal({
-    header: 'header',
+    header: 'Header',
+    body: 'Some contents...',
     footer: <button type="button" onClick={() => hideModal()}>close</button>
   });
   const Modal2 = useUniModal({ id: 'modal2', header });
@@ -22,7 +23,7 @@ function App() {
     <Router>
       <Modal noMask />
       <Modal2 closeOnOutsideClick />
-      <ModalWithPortal />
+      <ModalWithPortal width={1000} />
       <div className="App">
         <Routes>
           <Route path="/" element={<div>home</div>} />
