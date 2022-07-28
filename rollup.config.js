@@ -28,7 +28,7 @@ export default [
   },
   {
     input: 'src/index.ts',
-    external: ['react'],
+    external: ['react', 'react-dom'],
     output: [
       {
         file: pkg.main,

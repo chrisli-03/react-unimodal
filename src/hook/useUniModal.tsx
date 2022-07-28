@@ -6,6 +6,7 @@ import React, {
   ReactNode,
   Reducer,
 } from 'react';
+import * as ReactDOM from 'react-dom';
 import UniModal from '../component/UniModal';
 
 const defaultSymbol = Symbol('__default__');
@@ -68,7 +69,7 @@ const reducer: Reducer<State, Action> = (state: State, action: Action) => {
   }
 };
 
-export const useUniModal = ({ id = defaultSymbol, ...config }: UpdateState) => {
+export const useUniModal = ({ id = defaultSymbol, ...config }: UpdateState, portal: HTMLElement | null = null) => {
   const [state, dispatch] = useReducer(reducer, { id, open: false, ...config });
   useEffect(() => {
     listeners[id] = {
@@ -107,7 +108,13 @@ export const useUniModal = ({ id = defaultSymbol, ...config }: UpdateState) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     // eslint-disable-next-line react/jsx-props-no-spreading
-    (props) => <UniModal open={open} hideFn={hideFn} header={header} body={body} footer={footer} {...props} />,
+    (props) => {
+      const modal = <UniModal open={open} hideFn={hideFn} header={header} body={body} footer={footer} {...props} />;
+      if (!portal) {
+        return modal;
+      }
+      return ReactDOM.createPortal(modal, portal);
+    },
     [id, open, header, body, footer],
   );
 };

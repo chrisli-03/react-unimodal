@@ -33,6 +33,10 @@ function TestPage() {
         <button type="button" onClick={() => { updateModal({ id: 'modal2', body: <ModalType3 /> }); }}>modal type 3</button>
         <button type="button" onClick={() => { updateModal({ id: 'modal2', body: 'modal type string' }); }}>modal type string</button>
       </div>
+      <div>
+        <button type="button" onClick={() => showModal('modal-portal')}>show modal with portal</button>
+        <button type="button" onClick={() => hideModal('modal-portal')}>hide modal with portal</button>
+      </div>
     </div>
   );
 }
