@@ -68,6 +68,10 @@ example
 
 header, body, footer can be a react element or string
 
+using portal
+`useUniModal(config, portalDomNode)`
+modal will be rendered inside portalDomNode instead of application tree
+
 showModal
 - call this function to display modal
 - id: optional, default is used if not set
