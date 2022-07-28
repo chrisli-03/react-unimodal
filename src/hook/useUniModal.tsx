@@ -69,7 +69,7 @@ const reducer: Reducer<State, Action> = (state: State, action: Action) => {
   }
 };
 
-export const useUniModal = ({ id = defaultSymbol, ...config }: UpdateState, portal: HTMLElement | null = null) => {
+export const useUniModal = ({ id = defaultSymbol, ...config }: UpdateState, portal?: HTMLElement) => {
   const [state, dispatch] = useReducer(reducer, { id, open: false, ...config });
   useEffect(() => {
     listeners[id] = {
@@ -105,10 +105,10 @@ export const useUniModal = ({ id = defaultSymbol, ...config }: UpdateState, port
   const hideFn = () => hideModal(id);
 
   return useCallback(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    (props) => {
+    (props: JSX.IntrinsicAttributes & { open: boolean; hideFn: () => void; header: ReactNode; body: ReactNode; footer: ReactNode; closeOnOutsideClick: boolean | void; }) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line react/jsx-props-no-spreading
       const modal = <UniModal open={open} hideFn={hideFn} header={header} body={body} footer={footer} {...props} />;
       if (!portal) {
         return modal;
