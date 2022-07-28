@@ -3,7 +3,7 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-import { useUniModal } from 'react-unimodal';
+import { useUniModal, hideModal } from 'react-unimodal';
 import TestPage from './page/TestPage';
 import './App.css';
 import 'react-unimodal/dist/style.css';
@@ -11,7 +11,10 @@ import 'react-unimodal/dist/style.css';
 const modalRoot = document.getElementById('modal-root');
 const header = <div>component header</div>;
 function App() {
-  const Modal = useUniModal({ header: 'header', footer: 'footer' });
+  const Modal = useUniModal({
+    header: 'header',
+    footer: <button type="button" onClick={() => hideModal()}>close</button>
+  });
   const Modal2 = useUniModal({ id: 'modal2', header });
   const ModalWithPortal = useUniModal({ id: 'modal-portal', body: 'modal with portal' }, modalRoot);
 
