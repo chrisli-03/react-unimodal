@@ -7,14 +7,14 @@ Highly customizable header, body, and footer
 
 Try out demo here https://codesandbox.io/s/react-unimodal-hvbp1i
 
-install
+#### install
 ```
 npm i --save react-unimodal
 ```
 
 add `import 'react-unimodal/dist/style.css';` to your app.js file to use default styles, don't import if you want to style it yourself
 
-creating modal
+#### creating modal
 ```javascript
 import { useUniModal } from 'react-unimodal'
 // in any page/component, use useUniModal hook to create the component
@@ -29,7 +29,7 @@ function App() {
   )
 }
 ```
-using modal
+#### using modal
 ```javascript
 // use these commands to control the modal
 import { showModal, hideModal, updateModal } from 'react-unimodal'
@@ -53,7 +53,7 @@ const Component = () => {
 }
 ```
 
-params to pass
+#### params to pass
 
 useUniModal
 - object
@@ -61,26 +61,27 @@ useUniModal
   - header: optional, header component of modal
   - body: body component of modal
   - footer: optional, footer component of modal
+- dom node (optional, used for portal)
 
-example
+#### example
 
 `useUniModal({ id: 'modal id', header, body, footer })` or `useUniModal({ header, body, footer })`
 
 header, body, footer can be a react element or string
 
-using portal
+#### using portal
 `useUniModal(config, portalDomNode)`
 modal will be rendered inside portalDomNode instead of application tree
 
-showModal
+#### showModal
 - call this function to display modal
 - id: optional, default is used if not set
 
-hideModal
+#### hideModal
 - call this function to hide modal
 - id: optional, id of modal, default is used if not set
 
-updateModal
+#### updateModal
 - pass a configuration to change header, body, or footer of a modal, same as `useUniModal`
 - object
     - id: optional, id of modal, default is used if not set
