@@ -7,6 +7,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import dts from 'rollup-plugin-dts';
 import postcss from 'rollup-plugin-postcss';
+import autoprefixer from 'autoprefixer';
 import size from 'rollup-plugin-size';
 import visualizer from 'rollup-plugin-visualizer';
 
@@ -21,8 +22,10 @@ export default [
     plugins: [
       // del({ targets: 'dist/*' }),
       postcss({
+        plugins: [autoprefixer()],
         extract: true,
-        minimize: true
+        minimize: true,
+        extensions: ['.sass','.css']
       }),
     ],
   },
