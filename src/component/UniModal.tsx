@@ -5,9 +5,9 @@ import CrossIcon from './CrossIcon';
 type UniModalProps = {
   open: boolean,
   hideFn: () => void,
-  header: ReactNode,
-  body: ReactNode,
-  footer: ReactNode,
+  header?: ReactNode,
+  body?: ReactNode,
+  footer?: ReactNode,
   width?: number,
   height?: number,
   autoClose?: number,
