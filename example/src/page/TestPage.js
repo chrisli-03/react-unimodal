@@ -37,6 +37,10 @@ function TestPage() {
         <button type="button" onClick={() => showModal('modal-portal')}>show modal with portal</button>
         <button type="button" onClick={() => hideModal('modal-portal')}>hide modal with portal</button>
       </div>
+      <div>
+        <button type="button" onClick={() => showModal('modal-autoclose')}>show modal with autoclose</button>
+        <button type="button" onClick={() => hideModal('modal-autoclose')}>hide modal with autoclose</button>
+      </div>
     </div>
   );
 }
