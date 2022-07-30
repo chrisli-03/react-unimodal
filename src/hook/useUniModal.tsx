@@ -20,6 +20,10 @@ export const hideModal = (id: string | symbol = defaultSymbol) => {
   listeners[id]?.displayCallback(false);
 };
 
+export const hideAllModal = () => {
+  (Object.keys(listeners).forEach((id) => hideModal(id)));
+};
+
 type UpdateState = {
   id?: string | symbol,
   header?: ReactNode,
@@ -102,10 +106,10 @@ export const useUniModal = ({ id = defaultSymbol, ...config }: UpdateState, port
   const header = useMemo(() => state.header || null, [state.header]);
   const body = useMemo(() => state.body || null, [state.body]);
   const footer = useMemo(() => state.footer || null, [state.footer]);
-  const hideFn = () => hideModal(id);
+  const hideFn = useCallback(() => hideModal(id), [id]);
 
   return useCallback(
-    (props: JSX.IntrinsicAttributes & { open: boolean; hideFn: () => void; header: ReactNode; body: ReactNode; footer: ReactNode; closeOnOutsideClick: boolean | void; }) => {
+    (props: JSX.IntrinsicAttributes & { open?: boolean; hideFn?: () => void; header?: ReactNode; body?: ReactNode; footer?: ReactNode; }) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       // eslint-disable-next-line react/jsx-props-no-spreading
