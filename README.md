@@ -1,4 +1,13 @@
 # React-UniModal
+[![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url] [![bundle size][bundlephobia-image]][bundlephobia-url]
+
+[npm-image]: http://img.shields.io/npm/v/react-unimodal.svg?style=flat-square
+[npm-url]: http://npmjs.org/package/react-unimodal
+[download-image]: https://img.shields.io/npm/dm/react-unimodal.svg?style=flat-square
+[download-url]: https://npmjs.org/package/react-unimodal
+[bundlephobia-url]: https://bundlephobia.com/result?p=react-unimodal
+[bundlephobia-image]: https://badgen.net/bundlephobia/minzip/react-unimodal
+
 A lightweight global modal component for React.JS
 
 Create one modal and control it in any page/component
