@@ -1,7 +1,7 @@
 # React-UniModal
-A lightweight global modal component for React.JS
+A lightweight global modal component for React, no extra dependencies
 
-Create one modal and control it in any page/component
+Easily create alerts, dialogs, popups and control/modify it in any page/component
 
 Highly customizable header, body, and footer
 
